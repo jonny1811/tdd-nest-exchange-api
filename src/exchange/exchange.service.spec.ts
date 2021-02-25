@@ -51,5 +51,14 @@ describe('ExchangeService', () => {
         'PYG',
       );
     });
+
+    it('should be throws when getCurrency throw', async () => {
+      (currenciesService.getCurrency as jest.Mock).mockRejectedValue(
+        new Error(),
+      );
+      await expect(
+        service.convertAmount({ from: 'INVALID', to: 'PYG', amount: 1 }),
+      ).rejects.toThrow();
+    });
   });
 });
