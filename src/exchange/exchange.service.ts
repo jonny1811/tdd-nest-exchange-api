@@ -1,4 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { ExchangeInput } from './types/exchange-input.types';
+import { ExchangeOutput } from './types/exchange.type';
 
 export class CurrenciesService {
   async getCurrency(currency: string): Promise<any> {}
@@ -7,7 +9,7 @@ export class CurrenciesService {
 @Injectable()
 export class ExchangeService {
   constructor(private currenciesServices: CurrenciesService) {}
-  async convertAmount({ from, to, amount }): Promise<any> {
+  async convertAmount({ from, to, amount }: ExchangeInput): Promise<ExchangeOutput> {
     if (!from || !to || !amount) {
       throw new BadRequestException();
     }
